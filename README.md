@@ -14,4 +14,6 @@ sudo apt-get install python-dev python-pip python3-dev python3-pip
 
 ### Install vim-plug plugin manager:
 
+```bash
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
