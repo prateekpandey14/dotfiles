@@ -10,6 +10,7 @@ sudo apt-get update
 sudo apt-get install neovim
 
 sudo apt-get install python-dev python-pip python3-dev python3-pip
+sudo pip3 install --upgrade neovim  (for python3 support)
 ```
 
 ### Install vim-plug plugin manager:
