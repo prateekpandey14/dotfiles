@@ -171,10 +171,10 @@ nnoremap <S-Left> :bprevious<cr>
 nnoremap <S-Right> :bnext<cr>
 
 " ... but skip the quickfix when navigating
-augroup qf
-    autocmd!
-    autocmd FileType qf set nobuflisted
-augroup END
+"augroup qf
+"    autocmd!
+"    autocmd FileType qf set nobuflisted
+"augroup END
 
 " Fix some common typos
 cnoreabbrev W! w!
@@ -500,6 +500,23 @@ au FileType go nmap <leader>gdh <Plug>(go-def-horizontal)
 au FileType go nmap <leader>gD <Plug>(go-doc)
 au FileType go nmap <leader>gDv <Plug>(go-doc-vertical)
 
+" :GoBuild and :GoTestCompile
+  autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+" :GoTest
+  autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+"build_go_files is a custom function that builds or compiles the test file.
+" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
+function! s:build_go_files()
+ let l:file = expand('%')
+   if l:file =~# '^\f\+_test\.go$'
+      call go#cmd#Test(0, 1)
+   elseif l:file =~# '^\f\+\.go$'
+   call go#cmd#Build(0)
+   endif
+endfunction
+
+
 " Run goimports when running gofmt
 let g:go_fmt_command = "goimports"
 
@@ -527,6 +544,7 @@ let g:go_auto_sameids = 1
 
 " Fix for location list when vim-go is used together with Syntastic
 let g:go_list_type = "quickfix"
+"let g:go_list_type = "locationlist"
 
 " gometalinter configuration
 let g:go_metalinter_command = ""
@@ -548,6 +566,7 @@ let g:go_metalinter_enabled = [
 let g:go_addtags_transform = "snakecase"
 
 " neomake configuration for Go.
+autocmd BufWritePost * Neomake
 let g:neomake_go_enabled_makers = [ 'go', 'gometalinter' ]
 let g:neomake_go_gometalinter_maker = {
   \ 'args': [
