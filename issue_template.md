@@ -1,5 +1,6 @@
 <!-- This form is for bug reports and feature requests ONLY! 
 
+->
 **Is this a BUG REPORT or FEATURE REQUEST?**:
 
 > Uncomment only one, leave it on its own line: 
