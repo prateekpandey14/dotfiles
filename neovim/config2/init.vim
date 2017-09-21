@@ -92,7 +92,7 @@ set tabstop=2
 set textwidth=80
 set title                         " let vim set the terminal title
 set updatetime=100                " redraw the status bar often
-
+set mouse=a                       " mouse select to copy
 " neovim specific settings
 "if has('nvim')
     " Set the Python binaries neovim is using. Please note that you will need to
@@ -122,6 +122,11 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " Center the screen quickly
 nnoremap <space> zz
+
+" yy and dd to work in Clipboard
+
+onoremap <silent> y y:call ClipboardYank()<cr>
+onoremap <silent> d d:call ClipboardYank()<cr>
 
 "----------------------------------------------
 " Colors
