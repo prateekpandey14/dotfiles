@@ -32,6 +32,6 @@ explain why.
 - Maya version (use `maya version`):
 - M-apiserver version (use `m-apiserver version`):
 - OS (e.g. from /etc/os-release):
-- Kernel (e.g. `uname -a`):
-- Install tools:
-- Others:
+
+
+
