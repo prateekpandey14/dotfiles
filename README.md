@@ -1,6 +1,6 @@
 # Dotfiles
 
-## Neovim Setup:
+## Neovim Setup for Go developement:
 
 ### To install Neovim on Ubuntu 16.04
 
