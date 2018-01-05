@@ -19,10 +19,7 @@ sudo pip3 install --upgrade neovim  (for python3 support)
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
-### Install Go-Guru:
+### Install Go-Tools:
 ```
-$ go get   golang.org/x/tools/cmd/guru
-$ go build golang.org/x/tools/cmd/guru
-$ mv guru $GOROOT/bin
-$ guru -help
+Open nvim and run `:GoInstallBinaries` to install all the go-tools.
 ```
