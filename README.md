@@ -21,5 +21,5 @@ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubuserc
 
 ### Install Go-Tools:
 ```
-Open nvim and run `:GoInstallBinaries` to install all the go-tools.
+Open nvim and run :GoInstallBinaries to install all the go-tools.
 ```
