@@ -18,8 +18,3 @@ sudo pip3 install --upgrade neovim  (for python3 support)
 ```bash
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
-
-### Install Go-Tools:
-```
-Open nvim and run :GoInstallBinaries to install all the go-tools.
-```
