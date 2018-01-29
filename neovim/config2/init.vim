@@ -48,7 +48,7 @@ Plug 'aklt/plantuml-syntax'
 Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'digitaltoad/vim-pug'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 Plug 'kylef/apiblueprint.vim'
 Plug 'lifepillar/pgsql.vim'
 Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
