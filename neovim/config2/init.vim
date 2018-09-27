@@ -50,7 +50,7 @@ Plug 'dag/vim-fish'
 Plug 'digitaltoad/vim-pug'
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 Plug 'kylef/apiblueprint.vim'
-Plug 'lifepillar/pgsql.vim'
+" Plug 'lifepillar/pgsql.vim'
 Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'plasticboy/vim-markdown'
 Plug 'tclh123/vim-thrift'
@@ -93,6 +93,8 @@ set textwidth=80
 set title                         " let vim set the terminal title
 set updatetime=100                " redraw the status bar often
 set mouse=a                       " mouse select to copy
+set maxmempattern=5000
+set lazyredraw                    " for fast scrolling
 " neovim specific settings
 "if has('nvim')
     " Set the Python binaries neovim is using. Please note that you will need to
@@ -550,6 +552,9 @@ let g:go_auto_sameids = 1
 " Fix for location list when vim-go is used together with Syntastic
 let g:go_list_type = "quickfix"
 "let g:go_list_type = "locationlist"
+
+" Add the failing test name to the output of :GoTest
+let g:go_test_show_name = 1
 
 " gometalinter configuration
 let g:go_metalinter_command = ""
