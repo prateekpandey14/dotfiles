@@ -5,7 +5,10 @@
 " instructions:
 " https://github.com/junegunn/vim-plug
 "----------------------------------------------
-call plug#begin('~/.vim/plugged')
+"call plug#begin('~/.vim/plugged')
+
+" Required:
+call plug#begin(expand('~/.config/nvim/plugged'))
 
 " Dependencies
 Plug 'Shougo/neocomplcache'        " Depenency for Shougo/neosnippet
@@ -13,14 +16,14 @@ Plug 'godlygeek/tabular'           " This must come before plasticboy/vim-markdo
 Plug 'tpope/vim-rhubarb'           " Depenency for tpope/fugitive
 
 " General plugins
-Plug 'MattesGroeger/vim-bookmarks'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}  " Needed to make sebdah/vim-delve work on Vim
 Plug 'Shougo/vimshell.vim'                  " Needed to make sebdah/vim-delve work on Vim
 Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
+"Plug 'mhinz/vim-signify'
+Plug 'vim-airline/vim-airline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'          " CtrlP is installed to support tag finding in vim-go
 Plug 'easymotion/vim-easymotion'
@@ -28,8 +31,6 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/calendar.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/vader.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
 Plug 'neomake/neomake'
@@ -42,24 +43,30 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vimwiki/vimwiki'
+Plug 'kassio/neoterm'
 
 " Language support
 Plug 'aklt/plantuml-syntax'
 Plug 'cespare/vim-toml'
-Plug 'dag/vim-fish'
 Plug 'digitaltoad/vim-pug'
-Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'kylef/apiblueprint.vim'
-" Plug 'lifepillar/pgsql.vim'
-Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+" Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+Plug 'stamblerre/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'plasticboy/vim-markdown'
 Plug 'tclh123/vim-thrift'
-Plug 'zchee/deoplete-go', { 'do': 'make'}
-Plug 'zchee/deoplete-jedi'
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+" Plug 'zchee/deoplete-jedi'
 
+" C language
+Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
+"Plug 'ludwig/split-manpage.vim'
+" Plug 'deoplete-plugins/deoplete-clang'
+"" Rust language
+"Plug 'rust-lang/rust.vim'
+"Plug 'racer-rust/vim-racer'
 " Colorschemes
 Plug 'NLKNguyen/papercolor-theme'
-
 call plug#end()
 
 "----------------------------------------------
@@ -84,7 +91,7 @@ set nowrap
 set noerrorbells                  " No bells!
 set novisualbell                  " I said, no bells!
 set number                        " show number ruler
-set relativenumber                " show relative numbers in the ruler
+" set relativenumber                " show relative numbers in the ruler
 set ruler
 set formatoptions=tcqron          " set vims text formatting options
 set softtabstop=2
@@ -94,16 +101,46 @@ set title                         " let vim set the terminal title
 set updatetime=100                " redraw the status bar often
 set mouse=a                       " mouse select to copy
 set maxmempattern=5000
-set lazyredraw                    " for fast scrolling
+set lazyredraw
+
 " neovim specific settings
-"if has('nvim')
+ if has('nvim')
     " Set the Python binaries neovim is using. Please note that you will need to
     " install the neovim package for these binaries separately like this for
     " example:
     " pip3.6 install -U neovim
-"    let g:python_host_prog = '/usr/local/bin/python2.7'
-"    let g:python3_host_prog = '/usr/local/bin/python3.6'
-"endif
+    " let g:python_host_prog = '/usr/bin/python2.7'
+    let g:python3_host_prog = '/usr/bin/python3.6'
+ endif
+
+" neocomplete like
+set completeopt+=noinsert
+" deoplete.nvim recommend
+set completeopt+=noselect
+
+" Skip the check of neovim module
+let g:python3_host_skip_check = 1
+
+"" deoplete-go settings
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+""----------------------------------------------------------------------------
+"
+"" deoplete options
+"let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_smart_case = 1
+"
+"" disable autocomplete by default
+""let b:deoplete_disable_auto_complete=1
+""let g:deoplete_disable_auto_complete=1
+let g:LanguageClient_rootMarkers = {
+        \ 'go': ['.git', 'go.mod'],
+        \ }
+
+let g:LanguageClient_serverCommands = {
+    \ 'go': ['bingo'],
+    \ }
+"
 
 " Enable mouse if possible
 if has('mouse')
@@ -251,7 +288,6 @@ autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 "----------------------------------------------
 " Plugin: Shougo/deoplete.nvim
 "----------------------------------------------
-
 if has('nvim')
     " Enable deoplete on startup
     let g:deoplete#enable_at_startup = 1
@@ -507,6 +543,17 @@ au FileType go nmap <leader>gdh <Plug>(go-def-horizontal)
 au FileType go nmap <leader>gD <Plug>(go-doc)
 au FileType go nmap <leader>gDv <Plug>(go-doc-vertical)
 
+" C mappings
+autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
+autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
+
+" Rust mappings
+let g:racer_experimental_completer = 1
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
 " :GoBuild and :GoTestCompile
   autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 " :GoTest
@@ -553,9 +600,6 @@ let g:go_auto_sameids = 1
 let g:go_list_type = "quickfix"
 "let g:go_list_type = "locationlist"
 
-" Add the failing test name to the output of :GoTest
-let g:go_test_show_name = 1
-
 " gometalinter configuration
 let g:go_metalinter_command = ""
 let g:go_metalinter_deadline = "5s"
@@ -601,6 +645,84 @@ let g:neomake_go_gometalinter_maker = {
   \   '%W%f:%l::%tarning: %m'
   \ }
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CSCOPE settings for vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"if has("cscope")
+"
+"    """"""""""""" Standard cscope/vim boilerplate
+"
+"    " use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+"    set cscopetag
+"
+"    " check cscope for definition of a symbol before checking ctags: set to 1
+"    " if you want the reverse search order.
+"    set csto=0
+"
+"    " add any cscope database in current directory
+"    if filereadable("cscope.out")
+"        cs add cscope.out
+"    " else add the database pointed to by environment variable
+"    elseif $CSCOPE_DB != ""
+"        cs add $CSCOPE_DB
+"    endif
+"
+"    " show msg when any other cscope db added
+"    set cscopeverbose
+"
+"
+"    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+"    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+"    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+"
+"
+"    " Using 'CTRL-spacebar' (intepreted as CTRL-@ by vim) then a search type
+"    " makes the vim window split horizontally, with search result displayed in
+"    " the new window.
+"    "
+"    " (Note: earlier versions of vim may not have the :scs command, but it
+"    " can be simulated roughly via:
+"    "    nmap <C-@>s <C-W><C-S> :cs find s <C-R>=expand("<cword>")<CR><CR>
+"
+"    nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-@>g :scs find g <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-@>c :scs find c <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-@>t :scs find t <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-@>e :scs find e <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-@>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
+"    nmap <C-@>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+"    nmap <C-@>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+"
+"
+"    " Hitting CTRL-space *twice* before the search type does a vertical
+"    " split instead of a horizontal one (vim 6 and up only)
+"    "
+"    " (Note: you may wish to put a 'set splitright' in your .vimrc
+"    " if you prefer the new window on the right instead of the left
+"
+"    nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-@><C-@>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-@><C-@>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-@><C-@>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-@><C-@>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+"    nmap <C-@><C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+"    nmap <C-@><C-@>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+"    nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+"
+"
+"    """"""""""""" key map timeouts
+"    "
+"    " By default Vim will only wait 1 second for each keystroke in a mapping.
+"    " You may find that too short with the above typemaps.  If so, you should
+"    " either turn off mapping timeouts via 'notimeout'.
+"
+" endif
+"
 "----------------------------------------------
 " Language: apiblueprint
 "----------------------------------------------
@@ -779,3 +901,11 @@ au FileType yaml set expandtab
 au FileType yaml set shiftwidth=2
 au FileType yaml set softtabstop=2
 au FileType yaml set tabstop=2
+
+"----------------------------------------------
+" Language: C++
+"----------------------------------------------
+au FileType cpp set expandtab
+au FileType cpp set shiftwidth=4
+au FileType cpp set softtabstop=4
+au FileType cpp set tabstop=4
