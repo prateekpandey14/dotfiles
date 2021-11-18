@@ -1,0 +1,33 @@
+{
+  "languageserver": {
+    "go": {
+      "command": "gopls",
+      "rootPatterns": [
+        "go.mod",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "filetypes": [
+        "go"
+      ],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
+    }
+    //    "rust": {
+    //      "command": "rust-analyzer",
+    //      "filetypes": ["rust"],
+    //      "rootPatterns": ["Cargo.toml"]
+    //    }
+  }
+  //  "coc.preferences.messageLevel": "error",
+  //  "coc.preferences.highlightTimeout": 500,
+  //  "coc.preferences.formatOnType": false,
+  //  "coc.preferences.formatOnSaveFiletypes": [
+  //    "go",
+  //    "json",
+  //    "rust",
+  //    "yaml"
+  //  ]
+}

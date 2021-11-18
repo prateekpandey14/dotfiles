@@ -2,16 +2,9 @@
 
 ## Neovim Setup for Go developement:
 
-### To install Neovim on Ubuntu 16.04
+### To install Neovim
 
-```bash
-sudo add-apt-repository ppa:neovim-ppa/stable
-sudo apt-get update
-sudo apt-get install neovim
-
-sudo apt-get install python-dev python-pip python3-dev python3-pip
-sudo pip3 install --upgrade neovim  (for python3 support)
-```
+Steps to install [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
 
 ### Install vim-plug plugin manager:
 
